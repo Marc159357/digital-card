@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Business Card</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #f4f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .card { background: #ffffff; width: 100%; max-width: 380px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); overflow: hidden; text-align: center; padding-bottom: 24px; }
+    .header { background: linear-gradient(135deg, #007bff, #0056b3); height: 110px; width: 100%; }
+    .avatar { width: 90px; height: 90px; border-radius: 50%; background: #e0e0e0; border: 4px solid #ffffff; margin: -45px auto 12px; display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: bold; color: #555; background-size: cover; background-position: center; }
+    .name { font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .title { font-size: 14px; font-weight: 500; color: #007bff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .company { font-size: 13px; color: #666; margin-bottom: 20px; }
+    .actions { display: flex; flex-direction: column; gap: 10px; padding: 0 24px; }
+    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px; border-radius: 12px; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { background-color: #007bff; color: #ffffff; }
+    .btn-primary:hover { background-color: #0056b3; }
+    .btn-secondary { background-color: #f0f2f5; color: #333333; }
+    .btn-secondary:hover { background-color: #e4e6eb; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header"></div>
+    <!-- Profile Initials / Placeholder -->
+    <div class="avatar">JD</div>
+    
+    <h1 class="name">John Doe</h1>
+    <p class="title">Change Manager</p>
+    <p class="company">Enterprise Solutions</p>
+
+    <div class="actions">
+      <!-- One-click Contact Download -->
+      <button class="btn btn-primary" onclick="downloadVCard()">
+        📱 Save to Contacts
+      </button>
+
+      <!-- Action Links -->
+      <a href="tel:+1234567890" class="btn btn-secondary">📞 Call (+123) 456-7890</a>
+      <a href="mailto:john.doe@example.com" class="btn btn-secondary">✉️ Email Me</a>
+      <a href="https://linkedin.com" target="_blank" class="btn btn-secondary">💼 LinkedIn Profile</a>
+    </div>
+  </div>
+
+  <script>
+    function downloadVCard() {
+      // vCard Data standard format
+      const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:John Doe
+TITLE:Change Manager
+ORG:Enterprise Solutions
+TEL;TYPE=CELL:+1234567890
+EMAIL:john.doe@example.com
+URL:https://linkedin.com
+END:VCARD`;
+
+      const blob = new Blob([vCardData], { type: "text/vcard" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "John_Doe.vcf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+
+</body>
+</html>
